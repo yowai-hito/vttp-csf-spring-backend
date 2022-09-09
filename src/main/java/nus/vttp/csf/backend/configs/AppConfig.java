@@ -11,16 +11,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class AppConfig {
     
 
-    private Logger log = LoggerFactory.getLogger(AppConfig.class.getName());
+    private Logger LOG = LoggerFactory.getLogger(AppConfig.class.getName());
 
     @Value("${cors.pathMapping}")
-    String pathMappings;
+    String pathMapping;
 
     @Value("${cors.origins}")
     String origins;
 
     @Bean
     public WebMvcConfigurer webMvcConfigurer() {
-        return new CORSConfiguration(pathMappings, origins);
+        LOG.info("CORS: pathMapping=%s, origins=%s".formatted(pathMapping, origins));
+        return new CORSConfiguration(pathMapping, origins);
     }
 }
