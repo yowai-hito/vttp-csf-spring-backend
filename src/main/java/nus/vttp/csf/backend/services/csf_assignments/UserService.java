@@ -5,8 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import jakarta.json.Json;
-import jakarta.json.JsonObject;
+import net.minidev.json.JSONObject;
 import nus.vttp.csf.backend.models.common.CsfResponse;
 import nus.vttp.csf.backend.models.csf_assignments.RegistrationRequest;
 
@@ -21,17 +20,18 @@ public class UserService {
         HttpStatus responseStatus = HttpStatus.resolve(200);
 
         responseHeaders.set("Content-Type","application/json");
+        responseHeaders.set("Accept", "application/json");
         responseBody.setData(buildUserJson(request));
         responseBody.setStatus(SUCCESS_STATUS);
         
         return new ResponseEntity<>(responseBody, responseHeaders, responseStatus);
     }
 
-    private JsonObject buildUserJson(RegistrationRequest request) {
-        return Json.createObjectBuilder()
-            .add("id", request.getId())
-            .add("name", request.getName())
-            .add("email", request.getEmail())
-            .build();
+    private JSONObject buildUserJson(RegistrationRequest request) {
+        JSONObject userData = new JSONObject();
+        userData.put("id", request.getId());
+        userData.put("name", request.getName());
+        userData.put("email", request.getEmail());
+        return userData;
     }
 }
