@@ -21,7 +21,7 @@ public class AppConfig {
 
     @Bean
     public WebMvcConfigurer webMvcConfigurer() {
-        LOG.info("CORS: pathMapping=%s, origins=%s".formatted(pathMapping, origins));
+        LOG.info(String.format("corMappings: %s and allowed origins: %s",pathMapping, origins));
         return new CORSConfiguration(pathMapping, origins);
     }
 }
